@@ -103,6 +103,7 @@ export const DEFAULT_DIMENSIONS = {
   ellipse: { radius: 30 },
   polygon: { length: 30 },
   vector: { length: 30 },
+  squarecircle: { size: 40 },
 };
 
 export default BaseTool;

@@ -16,6 +16,7 @@ import { TimelineLabelsModel } from "./TimelineLabels";
 import { VideoRectangleModel } from "./VideoRectangle";
 import { VideoVectorModel } from "./VideoVector";
 import { VideoVectorLabelsModel } from "./VideoVectorLabels";
+import { VideoSquareCircleModel } from "./VideoSquareCircle";
 
 import { BrushLabelsModel } from "./BrushLabels";
 import { BitmaskLabelsModel } from "./BitmaskLabels";
@@ -32,6 +33,8 @@ import { PolygonModel } from "./Polygon";
 import { VectorModel } from "./Vector";
 import { RectangleLabelsModel } from "./RectangleLabels";
 import { RectangleModel } from "./Rectangle";
+import { SquareCircleModel } from "./SquareCircle";
+import { SquareCircleLabelsModel } from "./SquareCircleLabels";
 
 import { RelationsModel } from "./Relations";
 import { RelationModel } from "./Relation";
@@ -67,8 +70,11 @@ export {
   VectorModel,
   RectangleLabelsModel,
   RectangleModel,
+  SquareCircleModel,
+  SquareCircleLabelsModel,
   VideoVectorModel,
   VideoVectorLabelsModel,
+  VideoSquareCircleModel,
   RelationsModel,
   RelationModel,
 };

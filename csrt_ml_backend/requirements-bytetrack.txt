@@ -1,0 +1,5 @@
+# Optional detector for ByteTrack multi-object mode (TRACKER=bytetrack).
+# ByteTrack only associates boxes across frames — it needs a detector to
+# produce per-frame boxes. YOLOv8 (ultralytics) is the default; swap in your
+# own detector by editing `_build_yolo_detector` in model.py.
+ultralytics>=8.2,<9
