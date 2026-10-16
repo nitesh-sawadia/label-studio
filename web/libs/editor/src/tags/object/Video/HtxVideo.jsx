@@ -28,6 +28,7 @@ import { VideoRegions } from "./VideoRegions";
 import { ff } from "@humansignal/core";
 import { InteractiveOverlayHost } from "../../../ml-interactive/InteractiveOverlayHost";
 import { InteractiveActionsBar } from "../../../ml-interactive/InteractiveActionsBar";
+import { TrackWithCsrt } from "./TrackWithCsrt";
 
 const isSyncedBuffering = ff.isActive(ff.FF_SYNCED_BUFFERING);
 
@@ -684,6 +685,8 @@ const HtxVideoView = ({ item, store }) => {
         </div>
 
         {loaded && ff.isSegmentAnythingEditorEnabled() && <InteractiveActionsBar objectTag={item} />}
+
+        {loaded && <TrackWithCsrt item={item} />}
 
         {loaded && (
           <Timeline

@@ -8,6 +8,7 @@ import Constants from "../../../core/Constants";
 import { Annotation } from "../../../stores/Annotation/Annotation";
 import { fixMobxObserve } from "../../../utils/utilities";
 import { Rectangle } from "./Rectangle";
+import { SquareCircle } from "./SquareCircle";
 import { VideoVectorShape } from "./VideoVector";
 import { createBoundingBoxGetter, createOnDragMoveHandler } from "./TransformTools";
 import ToolsManager from "../../../tools/Manager";
@@ -141,7 +142,14 @@ const VideoRegionsPure = ({
 
       const fixedRegion = { x, y, width, height };
 
-      item.addVideoRegion(fixedRegion);
+      // When a VideoSquareCircle control is active, a drag produces a square
+      // (the inscribed circle is derived). Click placement is handled in
+      // handleMouseUp; this covers the drag-to-size case.
+      if (item.videoSquareCircleControl) {
+        item.addVideoSquareCircleRegion(fixedRegion);
+      } else {
+        item.addVideoRegion(fixedRegion);
+      }
       setNewRegion(null);
     }
   }, [isDrawing, workinAreaCoordinates, videoDimensions]);
@@ -225,6 +233,14 @@ const VideoRegionsPure = ({
     }));
   };
 
+  const getSquareCircleControl = useCallback(() => {
+    const control = item.videoSquareCircleControl;
+    if (!control) return null;
+    // Only treat as active when it's the selected control (or it's the only
+    // video control present). Mirrors how the stage routes to the vector tool.
+    return control;
+  }, [item]);
+
   const handleMouseUp = (e) => {
     const vectorTool = getVectorTool();
 
@@ -240,6 +256,31 @@ const VideoRegionsPure = ({
     const { x, y } = limitCoordinates(normalizeMouseOffsets(e.evt.offsetX, e.evt.offsetY));
 
     if (Math.abs(newRegion.x - x) < MIN_SIZE && Math.abs(newRegion.y - y) < MIN_SIZE) {
+      // A click (no meaningful drag). If a VideoSquareCircle control is active,
+      // place a default-size square centered on the click instead of
+      // discarding the gesture.
+      const scControl = getSquareCircleControl();
+
+      if (scControl) {
+        const { width: waWidth, height: waHeight } = videoDimensions;
+        const sizePx = Number(scControl.size) || 40;
+        // We want a true SQUARE in pixels. width% and height% map to different
+        // pixel sizes because the frame is not square (waWidth != waHeight), so
+        // convert the same pixel side independently per axis. In the view,
+        // widthPct*waWidth == heightPct*waHeight == sizePx -> equal pixels.
+        const widthPct = (sizePx / waWidth) * 100;
+        const heightPct = (sizePx / waHeight) * 100;
+        const cx = (newRegion.x / waWidth) * 100;
+        const cy = (newRegion.y / waHeight) * 100;
+
+        item.annotation.unselectAreas();
+        item.addVideoSquareCircleRegion({
+          x: cx - widthPct / 2,
+          y: cy - heightPct / 2,
+          width: widthPct,
+          height: heightPct,
+        });
+      }
       setNewRegion(null);
     } else {
       setNewRegion((region) => ({ ...region, width: x - region.x, height: y - region.y }));
@@ -392,6 +433,12 @@ const Shape = observer(({ id, reg, item, stageRef, currentFrame, allowRegionsOut
         allowOutsideBounds={allowRegionsOutsideWorkingArea}
         {...props}
       />
+    );
+  }
+
+  if (reg.type === "videosquarecircleregion") {
+    return (
+      <SquareCircle id={id} reg={reg} box={box} frame={frame} onClick={handleClick} {...props} />
     );
   }
 

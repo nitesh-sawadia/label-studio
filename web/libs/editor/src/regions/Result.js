@@ -38,6 +38,9 @@ const resultTypes = [
   "videorectangle",
   "videovector",
   "videovectorlabels",
+  "videosquarecircle",
+  "squarecircle",
+  "squarecirclelabels",
   "ranker",
 ];
 
@@ -66,6 +69,12 @@ const resultValues = {
   timelinelabels: types.maybe(types.array(types.string)), // new one
   bitmasklabels: types.maybe(types.array(types.string)),
   videovectorlabels: types.maybe(types.array(types.string)),
+  squarecirclelabels: types.maybe(types.array(types.string)),
+  // square-circle geometry (saved as center + radius, percentages)
+  cx: types.maybe(types.number),
+  cy: types.maybe(types.number),
+  radius: types.maybe(types.number),
+  shape: types.maybe(types.string),
   taxonomy: types.frozen(), // array of arrays of strings
   sequence: types.frozen(),
 };

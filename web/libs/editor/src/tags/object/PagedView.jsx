@@ -64,6 +64,7 @@ const Model = types.model({
     "paragraphlabels",
     "video",
     "videorectangle",
+    "videosquarecircle",
   ]),
 });
 

@@ -129,11 +129,20 @@ const Model = types
     get videoControl() {
       return self.annotation.toNames
         .get(self.name)
-        ?.find((s) => s.type.includes("video") && !s.type.includes("videovector"));
+        ?.find(
+          (s) =>
+            s.type.includes("video") &&
+            !s.type.includes("videovector") &&
+            !s.type.includes("videosquarecircle"),
+        );
     },
 
     get videoVectorControl() {
       return self.annotation.toNames.get(self.name)?.find((s) => s.type.includes("videovector"));
+    },
+
+    get videoSquareCircleControl() {
+      return self.annotation.toNames.get(self.name)?.find((s) => s.type.includes("videosquarecircle"));
     },
 
     states() {
@@ -428,6 +437,33 @@ const Model = types
             frame: self.frame,
             enabled: true,
             rotation: 0,
+            ...data,
+          },
+        ];
+
+        const activeStates = self.activeStates();
+        const area = self.annotation.createResult({ sequence }, {}, control, self, false, activeStates);
+        return area;
+      },
+
+      addVideoSquareCircleRegion(data) {
+        const control = self.videoSquareCircleControl;
+
+        if (!control) {
+          console.error("No video square-circle control is found");
+          return;
+        }
+
+        // The click handler passes per-axis percentages (width % of frame
+        // width, height % of frame height) that already resolve to an EQUAL
+        // pixel side — a true square. Keep them as-is; the region's updateShape
+        // keeps subsequent resizes square, and serialize() saves cx/cy/radius.
+        const sequence = [
+          {
+            frame: self.frame,
+            enabled: true,
+            rotation: 0,
+            shape: "squarecircle",
             ...data,
           },
         ];

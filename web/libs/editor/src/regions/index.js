@@ -11,11 +11,13 @@ import { HtxPolygon, PolygonRegionModel } from "./PolygonRegion";
 import { HtxVector, VectorRegionModel } from "./VectorRegion";
 import { HtxRectangle, RectRegionModel } from "./RectRegion";
 import { EllipseRegionModel, HtxEllipse } from "./EllipseRegion";
+import { HtxSquareCircle, SquareCircleRegionModel } from "./SquareCircleRegion";
 import { HtxTextAreaRegion, TextAreaRegionModel } from "./TextAreaRegion";
 import { RichTextRegionModel } from "./RichTextRegion";
 import { TimelineRegionModel } from "./TimelineRegion";
 import { VideoRectangleRegionModel } from "./VideoRectangleRegion";
 import { VideoVectorRegionModel } from "./VideoVectorRegion";
+import { VideoSquareCircleRegionModel } from "./VideoSquareCircleRegion";
 import { ClassificationArea } from "./Area";
 
 const AllRegionsType = types.union(
@@ -36,6 +38,8 @@ const AllRegionsType = types.union(
   VideoRectangleRegionModel,
   VideoVectorRegionModel,
   ClassificationArea,
+  SquareCircleRegionModel,
+  VideoSquareCircleRegionModel,
   ...Registry.customTags.map((t) => t.region).filter(Boolean),
 );
 
@@ -48,6 +52,7 @@ export {
   HtxBitmask,
   HtxEllipse,
   HtxKeyPoint,
+  HtxSquareCircle,
   HtxPolygon,
   HtxVector,
   HtxRectangle,
@@ -65,4 +70,6 @@ export {
   TimelineRegionModel,
   VideoRectangleRegionModel,
   VideoVectorRegionModel,
+  SquareCircleRegionModel,
+  VideoSquareCircleRegionModel,
 };

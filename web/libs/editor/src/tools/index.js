@@ -10,6 +10,7 @@ import { Polygon } from "./Polygon";
 import { Vector } from "./Vector";
 import { Rect, Rect3Point } from "./Rect";
 import { Ellipse } from "./Ellipse";
+import { SquareCircle } from "./SquareCircle";
 import { Zoom } from "./Zoom";
 import { Rotate } from "./Rotate";
 import { Brightness } from "./Brightness";
@@ -30,6 +31,7 @@ export {
   Rect,
   Rect3Point,
   Ellipse,
+  SquareCircle,
   Brightness,
   Contrast,
   Rotate,

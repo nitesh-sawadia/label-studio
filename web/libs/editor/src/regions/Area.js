@@ -17,6 +17,7 @@ import { TimeSeriesRegionModel } from "./TimeSeriesRegion";
 import { ParagraphsRegionModel } from "./ParagraphsRegion";
 import { VideoRectangleRegionModel } from "./VideoRectangleRegion";
 import { isVideoVectorRegionValue, VideoVectorRegionModel } from "./VideoVectorRegion";
+import { isVideoSquareCircleRegionValue, VideoSquareCircleRegionModel } from "./VideoSquareCircleRegion";
 import { BitmaskRegionModel } from "./BitmaskRegion";
 
 // general Area type for classification Results which doesn't belong to any real Area
@@ -80,6 +81,7 @@ const Area = types.union(
         const seq = sn.sequence || sn.value?.sequence;
 
         if (seq) {
+          if (isVideoSquareCircleRegionValue(sn)) return VideoSquareCircleRegionModel;
           if (isVideoVectorRegionValue(sn)) return VideoVectorRegionModel;
           return VideoRectangleRegionModel;
         }
@@ -104,6 +106,7 @@ const Area = types.union(
   BitmaskRegionModel,
   VideoRectangleRegionModel,
   VideoVectorRegionModel,
+  VideoSquareCircleRegionModel,
   ClassificationArea,
   ...Registry.customTags.map((t) => t.region).filter(Boolean),
 );

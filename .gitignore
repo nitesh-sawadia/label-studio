@@ -85,3 +85,8 @@ CLAUDE.local.md
 web/libs/editor/tests/coverage
 web/coverage-chunks
 .cache
+
+# Local dev run artifacts (not for commit)
+.ls-data/
+.ls-venv/
+csrt_ml_backend/.venv/

@@ -1,0 +1,13 @@
+# Label Studio ML SDK (v2) — only distributed via GitHub, not PyPI.
+# PyPI's `label-studio-ml` tops out at 1.0.9, which pins an ancient Werkzeug
+# that is incompatible with Python >= 3.12 (uses the removed `ast.Str`).
+label-studio-ml @ git+https://github.com/HumanSignal/label-studio-ml-backend.git
+
+# CSRT lives in opencv's contrib modules — do NOT use plain opencv-python.
+opencv-contrib-python==4.11.0.86
+
+# opencv-contrib 4.11 needs numpy < 2.3; the SDK/supervision want numpy >= 2.
+numpy>=2,<2.3
+
+# Multi-object tracking (ByteTrack). Optional: only needed for TRACKER=bytetrack.
+supervision==0.30.9

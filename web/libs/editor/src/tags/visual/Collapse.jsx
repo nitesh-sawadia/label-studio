@@ -84,6 +84,7 @@ const PanelModel = types
       "pdf",
       "video",
       "videorectangle",
+      "videosquarecircle",
       "timelinelabels",
       "custominterface",
       ...Registry.customTags.map((t) => t.tag.toLowerCase()),
